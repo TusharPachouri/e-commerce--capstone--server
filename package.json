@@ -1,0 +1,22 @@
+{
+  "name": "capstone-project",
+  "version": "1.0.0",
+  "description": "Back-End for capstone project(ecommerce-with -amazing-additional features).",
+  "main": "index.js",
+  "scripts": {
+    "test": "module"
+  },
+  "keywords": [
+    "backend"
+  ],
+  "author": "Tushar Pachouri",
+  "license": "ISC",
+  "dependencies": {
+    "cloudinary": "^2.0.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.2.0"
+  }
+}
