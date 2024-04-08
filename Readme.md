@@ -1,3 +1,3 @@
-# Backend Project:-
+# Capstone Project :-
 
-- Backend with javascript
+- E-commerce
