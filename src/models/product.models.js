@@ -22,10 +22,6 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    stockQuantity: {
-      type: Number,
-      required: true,
-    },
     rentalDuration: {
       type: Number,
       required: true, // Duration in days
@@ -34,7 +30,11 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    images: [String], // array of URLs for product images
+    images: {
+      type: String,
+      required: true,
+    
+    }, // array of URLs for product images
     ratings: [
       {
         userId: mongoose.Schema.Types.ObjectId, // reference to the User model

@@ -13,6 +13,7 @@
   "author": "Tushar Pachouri",
   "license": "ISC",
   "dependencies": {
+    "@google/generative-ai": "^0.5.0",
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.0.1",
     "cookie-parser": "^1.4.6",
