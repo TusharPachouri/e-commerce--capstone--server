@@ -20,6 +20,13 @@ async function runChat(userPrompt) {
     maxOutputTokens: 2048,
   };
   let chatHistory = [];
+  const productDetails = {
+    category: "Electronics",
+    brand: "Samsung",
+    priceRange: "$500 - $700",
+    specifications: "6GB RAM, 128GB storage, 6.5-inch display"
+  };
+  
   let prompt = `Search for a product matching the following details:
   Category: ${productDetails.category}
   Brand: ${productDetails.brand}
@@ -59,4 +66,4 @@ async function runChat(userPrompt) {
   console.log(response.text());
 }
 
-runChat("My name is tushar");
+runChat("what ");
