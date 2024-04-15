@@ -1,83 +1,37 @@
-const mongoose = require("mongoose");
+import mongoose, {Schema} from 'mongoose';
 
-const productSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
+ProductSchema = mongoose.Schema({
+    item_name: {
+        type: String,
+        required: true,
+        trim: true
     },
     description: {
-      type: String,
-      required: true,
+        type: String,
+        required: true,
+        trim: true
     },
     category: {
-      type: String,
-      required: true,
-    },
+        type: String,
+        required: true
+    }, 
     price: {
-      type: Number,
-      required: true,
+        type: Number,
+        required: true
     },
-    rentalPrice: {
-      type: Number,
-      required: true,
+    clicks: {
+        type: Number,
+        required: true
     },
-    rentalDuration: {
-      type: Number,
-      required: true, // Duration in days
-    },
-    rentalDeposit: {
-      type: Number,
-      required: true,
-    },
-    images: {
-      type: String,
-      required: true,
-    
-    }, // array of URLs for product images
-    ratings: [
-      {
-        userId: mongoose.Schema.Types.ObjectId, // reference to the User model
-        ref: "User",
-        rating: {
-          type: Number,
-          min: 1,
-          max: 5,
-        },
-      },
-    ],
-    reviews: [
-      {
-        userId: mongoose.Schema.Types.ObjectId,
-        reviewText: String,
-        createdAt: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
-    availableForRent: {
-      type: Boolean,
-      default: true,
-    },
-    rentalHistory: [
-      {
-        userId: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        rentalStartDate: Date,
-        rentalEndDate: Date,
-        rentalPrice: Number,
-        rentalDeposit: Number,
-        returned: {
-          type: Boolean,
-          default: false,
-        },
-      },
-    ],
-  },
-  { timestamps: true }
-);
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    }
+}, {
+    timestamps: true
+})
 
-const Product = mongoose.model("Product", productSchema);
+const Product = mongoose.model('product', ProductSchema)
 
-module.exports = Product;
+module.exports = Product

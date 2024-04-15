@@ -1,6 +1,6 @@
 import mongoose, {Schema} from 'mongoose';
 
-const rentalSchema = mongoose.Schema({
+TransactionSchema = mongoose.Schema({
     seller: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -23,6 +23,6 @@ const rentalSchema = mongoose.Schema({
     timestamps: true
 })
 
-const Rental = mongoose.model('Rental', rentalSchema)
+Transaction = mongoose.model('transaction', TransactionSchema)
 
-module.exports = Rental
+module.exports = Transaction
