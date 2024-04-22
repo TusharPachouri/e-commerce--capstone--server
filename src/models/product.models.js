@@ -1,6 +1,6 @@
 import mongoose, {Schema} from 'mongoose';
 
-ProductSchema = mongoose.Schema({
+const ProductSchema = mongoose.Schema({
     item_name: {
         type: String,
         required: true,
@@ -19,8 +19,8 @@ ProductSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    clicks: {
-        type: Number,
+    image: {
+        type: String,
         required: true
     },
     owner: {
@@ -32,6 +32,5 @@ ProductSchema = mongoose.Schema({
     timestamps: true
 })
 
-const Product = mongoose.model('product', ProductSchema)
+export const Product = mongoose.model('product', ProductSchema)
 
-module.exports = Product

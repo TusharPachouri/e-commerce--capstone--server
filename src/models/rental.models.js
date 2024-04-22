@@ -18,7 +18,27 @@ const rentalSchema = mongoose.Schema({
         ref: 'Product',
         required: true,
         trim: true
-    }
+    },
+    startDate: {
+        type: Date,
+        required: true,
+        trim: true
+    },
+    endDate: {
+        type: Date,
+        required: true,
+        trim: true
+    },
+    price_per_day: {
+        type: Number,
+        required: true
+    },
+    total_price: {
+        type: Number,
+        required: true
+    },
+    
+
 }, {
     timestamps: true
 })
