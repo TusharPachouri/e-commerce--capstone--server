@@ -1,6 +1,6 @@
-import mongoose, {Schema} from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-TransactionSchema = mongoose.Schema({
+const TransactionSchema = mongoose.Schema({
     seller: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -18,11 +18,26 @@ TransactionSchema = mongoose.Schema({
         ref: 'Product',
         required: true,
         trim: true
-    }
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    quantity: {
+        type: Number,
+        default: 1 // Assuming default quantity is 1
+    },
+    status: {
+        type: String,
+        enum: ['pending', 'completed', 'canceled'],
+        default: 'pending'
+    },
+    payed: {
+        type: Boolean,
+        default: false
+    },
 }, {
     timestamps: true
-})
+});
 
-Transaction = mongoose.model('transaction', TransactionSchema)
-
-module.exports = Transaction
+export const Transaction = mongoose.model('Transaction', TransactionSchema);
