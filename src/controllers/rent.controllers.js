@@ -9,9 +9,10 @@ import {
 } from "../utils/cloudinary.js";
 
 const addRental = asyncHandler(async (req, res) => {
-    const { seller, buyer, product, startDate, endDate, price_per_day, total_price } = req.body;
-    if (!seller || !buyer || !product || !startDate || !endDate || !price_per_day || !total_price)
+    const { seller, product, startDate, endDate, price_per_day, total_price } = req.body;
+    if (!seller || !product || !startDate || !endDate || !price_per_day || !total_price)
         throw new ApiError(400, "All fields are required");
+
     const rental = new Rental({
         seller,
         buyer,
