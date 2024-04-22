@@ -43,6 +43,5 @@ const rentalSchema = mongoose.Schema({
     timestamps: true
 })
 
-const Rental = mongoose.model('Rental', rentalSchema)
+export const Rental = mongoose.model('Rental', rentalSchema)
 
-module.exports = Rental
