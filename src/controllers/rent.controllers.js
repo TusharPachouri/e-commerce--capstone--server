@@ -22,11 +22,9 @@ const addRental = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Product is not available for rent");
   const costPerDay = product.rentPrice;
 
+  // Calculate the duration of the rental
   const duration = new Date(endDate) - new Date(startDate);
-
-  // Convert duration to days
   const durationInDays = duration / (1000 * 60 * 60 * 24);
-
   // Calculate the total price
   const total_price = costPerDay * durationInDays;
 
@@ -87,5 +85,10 @@ const getRentalsBySellerId = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, { rentals }, "Rentals retrieved successfully"));
 });
 
-
-export { addRental, getRentals, getRentalsByLoggedInUser, endRental, getRentalsBySellerId };
+export {
+  addRental,
+  getRentals,
+  getRentalsByLoggedInUser,
+  endRental,
+  getRentalsBySellerId,
+};
