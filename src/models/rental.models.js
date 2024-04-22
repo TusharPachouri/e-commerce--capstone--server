@@ -29,10 +29,6 @@ const rentalSchema = mongoose.Schema({
         required: true,
         trim: true
     },
-    price_per_day: {
-        type: Number,
-        required: true
-    },
     total_price: {
         type: Number,
         required: true
