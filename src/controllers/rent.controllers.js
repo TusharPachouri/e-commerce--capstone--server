@@ -1,4 +1,5 @@
 import { User } from "../models/user.models.js";
+import { Product } from "../models/product.models.js";
 import { Rental } from "../models/rental.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -20,7 +21,15 @@ const addRental = asyncHandler(async (req, res) => {
   if (!product.isAvailableForRent)
     throw new ApiError(400, "Product is not available for rent");
   const costPerDay = product.rentPrice;
-  const total_price = costPerDay * (endDate - startDate);
+
+  const duration = new Date(endDate) - new Date(startDate);
+
+  // Convert duration to days
+  const durationInDays = duration / (1000 * 60 * 60 * 24);
+
+  // Calculate the total price
+  const total_price = costPerDay * durationInDays;
+
   const rental = new Rental({
     seller: product.owner,
     buyer,
@@ -35,4 +44,48 @@ const addRental = asyncHandler(async (req, res) => {
     .json(new ApiResponse(201, { rental }, "Rental created successfully"));
 });
 
-export { addRental };
+const getRentals = asyncHandler(async (req, res) => {
+  const rentals = await Rental.find()
+    .populate("seller", "username email fullName")
+    .populate("buyer", "username email avatar fullName");
+  res
+    .status(200)
+    .json(new ApiResponse(200, { rentals }, "Rentals retrieved successfully"));
+});
+
+const getRentalsByLoggedInUser = asyncHandler(async (req, res) => {
+  const rentals = await Rental.find({ buyer: req.user._id })
+    .populate("seller", "username email")
+    .populate("buyer", "username email avatar fullName");
+  res
+    .status(200)
+    .json(new ApiResponse(200, { rentals }, "Rentals retrieved successfully"));
+});
+
+const endRental = asyncHandler(async (req, res) => {
+  const rental = await Rental.findById(req.params.id);
+  if (!rental) {
+    throw new ApiError(404, "Rental not found");
+  }
+  const currentDate = new Date();
+  if (currentDate >= rental.endDate) {
+    throw new ApiError(400, "Rental has already ended");
+  }
+  rental.endDate = currentDate;
+  await rental.save();
+  res
+    .status(200)
+    .json(new ApiResponse(200, { rental }, "Rental ended successfully"));
+});
+
+const getRentalsBySellerId = asyncHandler(async (req, res) => {
+  const rentals = await Rental.find({ seller: req.params.id })
+    .populate("seller", "username email")
+    .populate("buyer", "username email avatar fullName");
+  res
+    .status(200)
+    .json(new ApiResponse(200, { rentals }, "Rentals retrieved successfully"));
+});
+
+
+export { addRental, getRentals, getRentalsByLoggedInUser, endRental, getRentalsBySellerId };
