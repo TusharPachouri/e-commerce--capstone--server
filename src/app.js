@@ -3,20 +3,62 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 const app = express();
-// app.use("/", (req, res) => {
-//   res.json({ message: "hello from my side" });
-// });
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", req.headers.origin);
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+// app.use(
+//   cors({
+//     origin: "https://blog-website-client-two.vercel.app",
+//     methods: "GET, POST, OPTIONS, PUT, PATCH, DELETE",
+//     allowedHeaders: "X-Requested-With,content-type",
+//     credentials: true,
+//   })
+// );
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: [
+      "*",
+      "https://blog-website-client-two.vercel.app/",
+      "https://blog-website-client-two.vercel.app/login/",
+      "https://blog-website-client-two.vercel.app/contact/",
+      "https://blog-website-client-two.vercel.app/signup",
+      "https://blog-website-client-two.vercel.app",
+      "http://localhost:5173",
+      "http://localhost:5173/",
+      "https://blog-website-tushar-pachouris-projects.vercel.app/",
+      "https://vercel.com/tushar-pachouris-projects/blog-website/DTYHxjoaSAcRuEJVAWgwHXFDLKu4",
+      "https://blog-website-5qclhd8po-tushar-pachouris-projects.vercel.app/",
+    ],
     credentials: true,
+    methods: "GET, POST, OPTIONS, PUT, PATCH, DELETE",
+    // allowedHeaders:
+    //   "X-Requested-With,content-type, Authorization, x-auth-token",
   })
 );
+// const options = [
+//   cors({
+//     origin: "*",
+//     methods: "*",
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     credentials: true,
+//   }),
+// ];
+
+// app.use(options);
+app.options("*", cors());
+
 app.use(
   express.json({
-    limit: "16kb",
+    limit: "50mb",
   })
 );
+
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
 app.use(cookieParser());
