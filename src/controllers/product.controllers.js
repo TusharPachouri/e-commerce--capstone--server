@@ -15,6 +15,7 @@ const addProduct = asyncHandler(async (req, res) => {
   const owner = req.user._id;
   if (!owner) throw new ApiError(400, "Owner is required");
   const imageLocalPath = req.file.path;
+  if(isAvailableForRent && !rentPrice) throw new ApiError(400, "Rent price is required");
 
   const uploadResult = await uploadOnCloudinary(imageLocalPath, "productImage");
   const productImage = uploadResult.secure_url;
