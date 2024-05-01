@@ -97,6 +97,8 @@ const deleteProduct = asyncHandler(async (req, res) => {
       new ApiResponse(200, { deletedProduct }, "Product deleted successfully")
     );
 });
+// chcking if fork is working or not
+// sample comment will be removed later
 
 export {
   addProduct,
