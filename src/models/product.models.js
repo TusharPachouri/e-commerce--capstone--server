@@ -12,6 +12,16 @@ const ProductSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    detail1:{
+      type: String,
+      required: true,
+      trim: true,
+    },
+    detail2:{
+      type: String,
+      required: true,
+      trim: true,
+    },
     category: {
       type: String,
       required: true,

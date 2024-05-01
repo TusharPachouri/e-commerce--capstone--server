@@ -9,8 +9,9 @@ import {
 } from "../utils/cloudinary.js";
 
 const addProduct = asyncHandler(async (req, res) => {
-  const { item_name, description, category, price, isAvailableForRent,rentPrice } = req.body;
-  if (!item_name || !description || !category || !price || !req.file )
+  const { item_name, description, category, price, isAvailableForRent,rentPrice, detail1, detail2 } = req.body;
+  
+  if (!item_name || !description || !category || !price || !req.file || !detail1 || !detail2)
     throw new ApiError(400, "All fields are required");
   const owner = req.user._id;
   if (!owner) throw new ApiError(400, "Owner is required");
@@ -29,6 +30,8 @@ const addProduct = asyncHandler(async (req, res) => {
     isAvailableForRent,
     rentPrice,
     owner,
+    detail1,
+    detail2,
   });
 
   await product.save();
