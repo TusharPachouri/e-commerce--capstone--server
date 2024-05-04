@@ -68,6 +68,7 @@ import userRouter from "./routes/user.routes.js"
 import productRouter from "./routes/product.routes.js";
 import rentRouter from "./routes/rent.routes.js";
 import contactRouter from "./routes/contact.routes.js";
+import transactionRouter from "./routes/transaction.routes.js";
 
 
 //routes declarations :-
@@ -75,6 +76,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/rentals", rentRouter);
 app.use("/api/v1/contacts", contactRouter);
+app.use("/api/v1/transactions", transactionRouter);
 
 
 export { app };
