@@ -1,5 +1,6 @@
 import { User } from "../models/user.models.js";
 import { Transaction } from "../models/transaction.models.js";
+import { Product } from "../models/product.models.js";
 import { Rental } from "../models/rental.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -22,6 +23,7 @@ const addTransaction = asyncHandler(async (req, res) => {
     price,
     quantity,
   });
+  await transaction.save();
   res
     .status(201)
     .json(
@@ -31,25 +33,19 @@ const addTransaction = asyncHandler(async (req, res) => {
 
 const getTransactions = asyncHandler(async (req, res) => {
   const transactions = await Transaction.find()
-    .populate("seller", "username email fullName")
-    .populate("buyer", "username email avatar fullName")
-    .populate("product", "item_name price");
   res
     .status(200)
     .json(
       new ApiResponse(
         200,
-        { transactions },
+        { "transaction": transactions},
         "Transactions retrieved successfully"
       )
     );
 });
 
 const getTransactionsByLoggedInUser = asyncHandler(async (req, res) => {
-  const transactions = await Transaction.find({ buyer: req.user._id })
-    .populate("seller", "username email")
-    .populate("buyer", "username email avatar fullName")
-    .populate("product", "item_name price");
+  const transactions = await Transaction.find({ buyer: req.user._id }).populate("seller", "username email")
   res
     .status(200)
     .json(
