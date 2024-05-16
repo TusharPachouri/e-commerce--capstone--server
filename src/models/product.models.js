@@ -22,6 +22,16 @@ const ProductSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    detailTitle1:{
+      type: String,
+      required: true,
+      trim: true,
+    },
+    detailTitle2:{
+      type: String,
+      required: true,
+      trim: true,
+    },
     category: {
       type: String,
       required: true,
