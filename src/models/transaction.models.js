@@ -19,6 +19,16 @@ const TransactionSchema = mongoose.Schema({
         required: true,
         trim: true
     },
+    name: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    address: {
+        type: String,
+        required: true,
+        trim: true
+    },
     price: {
         type: Number,
         required: true

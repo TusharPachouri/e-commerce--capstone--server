@@ -8,8 +8,8 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 
 const addTransaction = asyncHandler(async (req, res) => {
   const { productId } = req.params;
-  const { quantity } = req.body;
-  if (!quantity) throw new ApiError(400, "Price is required");
+  const { quantity, name, address } = req.body;
+  if (!quantity || !name || !address) throw new ApiError(400, " All fields are required ");
   const product = await Product.findById(productId);
   if (!product) throw new ApiError(404, "Product not found");
   const buyer = req.user._id;
@@ -19,6 +19,8 @@ const addTransaction = asyncHandler(async (req, res) => {
   const transaction = new Transaction({
     seller,
     buyer,
+    name, 
+    address,
     product: productId,
     price,
     quantity,
