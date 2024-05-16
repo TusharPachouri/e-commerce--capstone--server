@@ -11,8 +11,8 @@ import {
 
 const addRental = asyncHandler(async (req, res) => {
   const { productId } = req.params;
-  const { startDate, endDate } = req.body;
-  if (!startDate || !endDate)
+  const { startDate, endDate, name, address } = req.body;
+  if (!startDate || !endDate || !name || !address)
     throw new ApiError(400, "Start date and end date are required");
   const buyer = req.user._id;
   if (!buyer) throw new ApiError(400, "Buyer is required");
@@ -21,10 +21,12 @@ const addRental = asyncHandler(async (req, res) => {
   if (!product.isAvailableForRent)
     throw new ApiError(400, "Product is not available for rent");
   const costPerDay = product.rentPrice;
+  console.log(costPerDay);
 
   // Calculate the duration of the rental
   const duration = new Date(endDate) - new Date(startDate);
   const durationInDays = duration / (1000 * 60 * 60 * 24);
+  // console.log(durationInDays);
   // Calculate the total price
   const total_price = costPerDay * durationInDays;
 
@@ -32,6 +34,8 @@ const addRental = asyncHandler(async (req, res) => {
     seller: product.owner,
     buyer,
     product: productId,
+    name,
+    address,
     startDate,
     endDate,
     total_price,

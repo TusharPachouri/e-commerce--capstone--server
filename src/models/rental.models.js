@@ -13,6 +13,16 @@ const rentalSchema = mongoose.Schema({
         required: true,
         trim: true
     },
+    name: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    address: {
+        type: String,
+        required: true,
+        trim: true
+    },
     product: {
         type: Schema.Types.ObjectId,
         ref: 'Product',
