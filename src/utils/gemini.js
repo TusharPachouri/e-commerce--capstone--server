@@ -3,13 +3,14 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from "@google/generative-ai";
+import e from "express";
 // node --version # Should be >= 18
 // npm install @google/generative-ai
 
 const MODEL_NAME = "gemini-1.0-pro-001";
 const API_KEY = "AIzaSyDj4yC0DiJVBpbQQltwlQil5QfADQOAvm0";
 
-async function runChat(userPrompt) {
+async function runChat(userPrompt, products) {
   const genAI = new GoogleGenerativeAI(API_KEY);
   const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
@@ -20,20 +21,11 @@ async function runChat(userPrompt) {
     maxOutputTokens: 2048,
   };
   let chatHistory = [];
-  const productDetails = {
-    category: "Electronics",
-    brand: "Samsung",
-    priceRange: "$500 - $700",
-    specifications: "6GB RAM, 128GB storage, 6.5-inch display"
-  };
   
-  let prompt = `Search for a product matching the following details:
-  Category: ${productDetails.category}
-  Brand: ${productDetails.brand}
-  Price Range: ${productDetails.priceRange}
-  Specifications: ${productDetails.specifications}
-  Include any other relevant information here.
-  `;
+  let prompt = `I have the following products in my store: ${products}. Based on the user's query: "${userPrompt}",
+   suggest the most suitable product from my store. If the recommended product is not available,
+   suggest the most relevant product from the store. and do not forget to mention the price of the product.
+   `;
 
   const safetySettings = [
     {
@@ -63,7 +55,8 @@ async function runChat(userPrompt) {
   const result = await chat.sendMessage(prompt);
   const response = result.response;
   chatHistory.push({ user: prompt, response: result.response.text() });
-  console.log(response.text());
+  // console.log(response.text());
+  return response.text();
 }
 
-runChat("what ");
+export { runChat };

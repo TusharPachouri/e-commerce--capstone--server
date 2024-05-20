@@ -69,6 +69,7 @@ import productRouter from "./routes/product.routes.js";
 import rentRouter from "./routes/rent.routes.js";
 import contactRouter from "./routes/contact.routes.js";
 import transactionRouter from "./routes/transaction.routes.js";
+import geminiRouter from "./routes/gemini.routes.js";
 
 
 //routes declarations :-
@@ -77,6 +78,6 @@ app.use("/api/v1/products", productRouter);
 app.use("/api/v1/rentals", rentRouter);
 app.use("/api/v1/contacts", contactRouter);
 app.use("/api/v1/transactions", transactionRouter);
-
+app.use("/api/v1/gemini", geminiRouter);
 
 export { app };
