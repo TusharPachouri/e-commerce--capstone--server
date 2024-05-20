@@ -21,7 +21,7 @@ const addRental = asyncHandler(async (req, res) => {
   if (!product.isAvailableForRent)
     throw new ApiError(400, "Product is not available for rent");
   const costPerDay = product.rentPrice;
-  console.log(costPerDay);
+  // console.log(costPerDay);
 
   // Calculate the duration of the rental
   const duration = new Date(endDate) - new Date(startDate);
