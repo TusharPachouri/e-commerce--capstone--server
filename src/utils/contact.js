@@ -1,5 +1,11 @@
 import nodeMail from "nodemailer";
-async function mainMail(name, email, subject = "BlogWebsite", contactNumber = "", message) {
+async function mainMail(
+  name,
+  email,
+  subject = "NexGen ShopX",
+  contactNumber = "",
+  message
+) {
   const transporter = await nodeMail.createTransport({
     service: "gmail",
     auth: {
