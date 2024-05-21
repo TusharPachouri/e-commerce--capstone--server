@@ -58,7 +58,7 @@ const getRentals = asyncHandler(async (req, res) => {
 const getRentalsByLoggedInUser = asyncHandler(async (req, res) => {
   const rentals = await Rental.find({ buyer: req.user._id })
     .populate("seller", "username email")
-    .populate("buyer", "username email avatar fullName");
+    .populate("buyer", "username email avatar fullName")
   res
     .status(200)
     .json(new ApiResponse(200, { rentals }, "Rentals retrieved successfully"));
